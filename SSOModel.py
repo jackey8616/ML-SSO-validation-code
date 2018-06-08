@@ -1,4 +1,4 @@
-import os
+import os, traceback
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 import sys, random
 import numpy as np
@@ -16,7 +16,6 @@ height = generator.height
 n_len = generator.len
 n_class = generator.vocab.size
 print(width, height, n_len, n_class)
-
 
 # Captcha generator from method.
 def gen(batch_size=32):
@@ -89,10 +88,15 @@ class SSOModel(object):
                                  validation_steps=validationSteps)
 
     def productionPredict(self, cookies):
-        X, y = next(genFromSSO(cookies=cookies))
-        y_pred = self.model.predict(X)
-        print('real: %s\npred:%s'%(decode(y), decode(y_pred)))
-        return decode(y_pred)
+        try:
+            X, y = next(genFromSSO(cookies=cookies))
+            y_pred = self.model.predict(X)
+            print('real: %s\npred:%s'%(decode(y), decode(y_pred)))
+            return decode(y_pred)
+        except Exception as e:
+            traceback.print_exc()
+            print(e)
+            return None
 
     def testPredict(self, batch_size=1):
         X, y = next(gen(batch_size=batch_size))
@@ -121,5 +125,5 @@ class SSOModel(object):
 if __name__ == "__main__":
     model = SSOModel(debug=True)
     model.load()
-    model.compile()
+    model.testPredict()
 
