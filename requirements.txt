@@ -1,4 +1,5 @@
 absl-py==0.2.2
+aiofiles==0.3.2
 astor==0.6.2
 bleach==1.5.0
 certifi==2018.4.16
@@ -11,6 +12,7 @@ greenlet==0.4.13
 grpcio==1.12.1
 h5py==2.8.0
 html5lib==0.9999999
+httptools==0.0.11
 idna==2.6
 itsdangerous==0.24
 Jinja2==2.10
@@ -21,14 +23,17 @@ Markdown==2.6.11
 MarkupSafe==1.0
 numpy==1.14.4
 Pillow==5.1.0
-pkg-resources==0.0.0
 protobuf==3.5.2.post1
 PyYAML==3.12
 requests==2.18.4
+sanic==0.7.0
 scipy==1.1.0
 six==1.11.0
 tensorboard==1.8.0
 tensorflow==1.8.0
 termcolor==1.1.0
+ujson==1.35
 urllib3==1.22
+uvloop==0.10.1
+websockets==5.0.1
 Werkzeug==0.14.1

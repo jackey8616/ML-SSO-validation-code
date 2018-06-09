@@ -1,5 +1,5 @@
-import os, traceback
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+import os, sys, traceback
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import sys, random
 import numpy as np
 from keras.models import *
@@ -31,14 +31,12 @@ def gen(batch_size=32):
                 y[j][i, characters.find(ch)] = 1
         yield X, y
 
-# Captcha generate or fetch from SSO.
-def genFromSSO(batch_size=1, cookies=None):
-    X = np.zeros((batch_size, height, width, 3), dtype=np.uint8)
-    y = [np.zeros((batch_size, n_class), dtype=np.uint8) for i in range(n_len)]
+def genFromImages(imageTuple):
+    X = np.zeros((len(imageTuple), height, width, 3), dtype=np.uint8)
+    y = [np.zeros((len(imageTuple), n_class), dtype=np.uint8) for i in range(n_len)]
     while True:
-        for i in range(batch_size):
-            img, text = getImage(cookies)
-            text = '1234'
+        for i in range(len(imageTuple)):
+            img, text = imageTuple[i]
             X[i] = img
             for j, ch in enumerate(text):
                 y[j][i, :] = 0
@@ -89,13 +87,14 @@ class SSOModel(object):
 
     def productionPredict(self, cookies):
         try:
-            X, y = next(genFromSSO(cookies=cookies))
+            X = np.zeros((1, height, width, 3), dtype=np.uint8)
+            img, text = getImage(cookies)
+            X[0] = img
             y_pred = self.model.predict(X)
-            print('real: %s\npred:%s'%(decode(y), decode(y_pred)))
+            print('pred:%s' % decode(y_pred))
             return decode(y_pred)
         except Exception as e:
             traceback.print_exc()
-            print(e)
             return None
 
     def testPredict(self, batch_size=1):

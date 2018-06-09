@@ -1,30 +1,27 @@
-from gevent import monkey
-monkey.patch_all()
-from gevent.pywsgi import WSGIServer
-
 import keras
 import requests
-from flask import Flask, request, jsonify
+from sanic import Sanic
+from sanic.response import json
 from SSOModel import SSOModel
 
-app = Flask(__name__)
+app = Sanic()
 
+global model
 model = SSOModel()
+model.load()
 
 @app.route('/validationCode', methods=['POST'])
-def validationCode():
+async def validationCode(request):
+    global model
     try:
         cookies = requests.utils.cookiejar_from_dict(request.cookies)
         for cookie in cookies:
             cookie.domain = 'webapp.yuntech.edu.tw'
-        keras.backend.clear_session()
-        model.load()
         code = model.productionPredict(cookies=cookies)
-        return jsonify({ 'success': True, 'code': code })
+        return json({ 'success': True, 'code': code })
     except Exception as e:
-        return jsonify({ 'fail': True, 'exception': e })
+        return json({ 'fail': True, 'exception': e })
 
 if __name__ == '__main__':
-    server = WSGIServer(('127.0.0.1', 5000), app)
-    server.serve_forever()
+    app.run(host='0.0.0.0', port=5000)
 

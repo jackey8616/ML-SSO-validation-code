@@ -6,18 +6,30 @@ payload = { 'pStandardSubmit': False, 'pLoginName': '1234567', 'pLoginPassword':
 session = requests.Session()
 cookies = session.get(url + '/YunTechSSO/Account/Login').cookies
 
-codeRes = json.loads(requests.post('http://127.0.0.1:5000/validationCode',cookies=requests.utils.dict_from_cookiejar(cookies)).text)
-print(codeRes)
+for i in range(30):
 
-if(codeRes['success'] == True):
-    payload['pSecretString'] = codeRes['code']
-    loginRes = session.post(url + '/YunTechSSO/Account/Login', data=payload)
+    codeRes = json.loads(requests.post('http://127.0.0.1:5000/validationCode',cookies=requests.utils.dict_from_cookiejar(cookies)).text)
+    print(codeRes)
 
-    print(loginRes)
-    #print(loginRes.text)
+#import keras
+#from SSOModel import SSOModel
+#model = SSOModel()
+#model.load()
 
-    homeRes = session.get(url + '/YuntechSSO/Home/Index')
+#for i in range(4):
+    #keras.backend.clear_session()
+    #code = model.productionPredict(cookies=cookies)
+    #codeRes = { 'success': True, 'code': code }
 
-    print(homeRes)
-    #print(homeRes.text)
+    if(codeRes['success'] == True):
+        payload['pSecretString'] = codeRes['code']
+        loginRes = session.post(url + '/YunTechSSO/Account/Login', data=payload)
+
+        print(loginRes)
+        print(loginRes.text)
+
+        homeRes = session.get(url + '/YuntechSSO/Home/Index')
+
+        print(homeRes)
+        #print(homeRes.text)
 
