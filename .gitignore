@@ -1,4 +1,5 @@
-venv3.5/
-__pycache__/
+/venv/
+/venv3.5/
+/__pycache__/
 
 *.pyc
