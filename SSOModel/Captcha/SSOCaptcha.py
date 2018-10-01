@@ -1,13 +1,13 @@
 from PIL import ImageDraw
 import random
 
-from .Captcha import Captcha
+from . import Captcha
 
 class SSOCaptcha(Captcha):
 
     def __init__(self,
                  size = (120, 40),
-                 font = ("./font/arial.ttf", 25, "#FFFFFF"),
+                 font = ("./SSOModel/font/arial.ttf", 25, "#FFFFFF"),
                  bgcolor = "#000000",
                  dot_rate = 0.075):
         Captcha.__init__(self, size, font, bgcolor)

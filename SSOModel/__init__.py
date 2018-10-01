@@ -5,9 +5,9 @@ import numpy as np
 from keras.models import *
 from keras.layers import *
 
-from Fetcher import getImage
-from Captcha.SSOCaptcha import SSOCaptcha
-from Captcha.Vocab import Vocab
+from .Fetcher import getImage
+from .Captcha.SSOCaptcha import SSOCaptcha
+from .Captcha.Vocab import Vocab
 
 generator = SSOCaptcha()
 characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -49,7 +49,8 @@ def decode(y):
 
 class SSOModel(object):
 
-    def __init__(self, debug=False):
+    def __init__(self, model_folder='./SSOModel/model/', debug=False):
+        self.model_folder = model_folder
         self.debug = debug
 
     def create(self):
@@ -84,6 +85,8 @@ class SSOModel(object):
                                  steps_per_epoch=stepsPerEpoch,
                                  epochs=epochs,
                                  validation_steps=validationSteps)
+        if self.debug:
+            print('Model trained')
 
     def productionPredict(self, cookies):
         try:
@@ -104,18 +107,18 @@ class SSOModel(object):
 
     def save(self):
         modelJson = self.model.to_json()
-        with open('./model/sso.model.json', 'w') as jsonFile:
+        with open(self.model_folder + 'sso.model.json', 'w') as jsonFile:
             jsonFile.write(modelJson)
-        self.model.save_weights('./model/sso.weights.h5')
+        self.model.save_weights(self.model_folder + 'sso.weights.h5')
         if self.debug:
             print('Model Saved.')
 
     def load(self):
         modelJson = None
-        with open('./model/sso.model.json', 'r') as jsonFile:
+        with open(self.model_folder + 'sso.model.json', 'r') as jsonFile:
             modelJson = jsonFile.read()
         self.model = model_from_json(modelJson)
-        self.model.load_weights('./model/sso.weights.h5')
+        self.model.load_weights(self.model_folder + 'sso.weights.h5')
         self.compile()
         if self.debug:
             self.testPredict()

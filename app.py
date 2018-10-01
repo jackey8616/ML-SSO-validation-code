@@ -1,14 +1,19 @@
-import keras
-import requests
+import keras, traceback, requests, click
 from sanic import Sanic
 from sanic.response import json
 from SSOModel import SSOModel
 
 app = Sanic()
+model = None
 
-global model
-model = SSOModel()
-model.load()
+@click.command()
+@click.option('--model-folder', default='./SSOModel/model/', type=str)
+@click.option('--debug', default=False, type=bool)
+def run(model_folder, debug):
+    global model, app
+    model = SSOModel(model_folder=model_folder, debug=debug)
+    model.load()
+    app.run(host='0.0.0.0', port=5000)
 
 def validateCode(cookies):
     global model
@@ -18,7 +23,7 @@ def validateCode(cookies):
         code = model.productionPredict(cookies=cookies)
         return json({ 'success': True, 'code': code })
     except Exception as e:
-        return json({ 'fail': True, 'exception': e })
+        return json({ 'fail': True, 'exception': traceback.format_exc() })
     
 
 @app.route('/validationCode', methods=['POST'])
@@ -43,5 +48,5 @@ async def vcCookieDict(request):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    run()
 
