@@ -1,12 +1,26 @@
 # ML-SSO-validation-code
 For SOME SCHOOL's SSO validation code recognition.
 
-## Docker
-### Build Image
+
+## Usage
+Before use, you have to host the service first.  
+Here provide local and docker way to host it.
+### With machine
 ```sh
-docker build -t sso-validate-flask-server:latest .
+$ pip3 install -r requirements-model.txt
+$ python3 app.py
 ```
-### Run Image
+### With Docker
 ```sh
-docker run -ti -d -p 127.0.0.1:5000:5000 --restart always sso-validate-flask-server:latest 
+build image:
+$ docker build -t sso-validate-flask-server:latest .
+run image:
+$ docker run -ti -d -p 127.0.0.1:5000:5000 --restart always sso-validate-flask-server:latest 
+```
+
+### Predict
+In run.py have some example usage to interact with service.
+```sh
+$ pip3 install -r requirements-run.txt
+$ python3 run.py
 ```
