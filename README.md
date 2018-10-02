@@ -17,6 +17,15 @@ $ docker build -t sso-validate-flask-server:latest .
 run image:
 $ docker run -ti -d -p 127.0.0.1:5000:5000 --restart always sso-validate-flask-server:latest 
 ```
+### With Docker-compose
+```sh
+Start container:
+$ docker-compose up -d
+Stop container:
+$ docker-compose down
+View logs:
+$ docker-compose logs -f
+```
 
 ### Predict
 In run.py have some example usage to interact with service.

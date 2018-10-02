@@ -1,0 +1,7 @@
+version: "3"
+services:
+  sso-validater:
+    build: .
+    ports:
+        - "127.0.0.1:5000:5000"
+    restart: unless-stopped
