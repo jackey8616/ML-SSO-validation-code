@@ -1,4 +1,6 @@
 # ML-SSO-validation-code
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjackey8616%2FML-SSO-validation-code.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjackey8616%2FML-SSO-validation-code?ref=badge_shield)
+
 For SOME SCHOOL's SSO validation code recognition.
 
 
@@ -24,3 +26,7 @@ In run.py have some example usage to interact with service.
 $ pip3 install -r requirements-run.txt
 $ python3 run.py
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjackey8616%2FML-SSO-validation-code.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjackey8616%2FML-SSO-validation-code?ref=badge_large)
