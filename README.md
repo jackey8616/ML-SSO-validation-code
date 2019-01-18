@@ -1,4 +1,5 @@
 # ML-SSO-validation-code
+[![Docker Build Status](https://img.shields.io/docker/build/clooooode/ml-sso-validation-code.svg?style=popout)](https://hub.docker.com/r/clooooode/ml-sso-validation-code/builds/) [![MicroBadger Size](https://img.shields.io/microbadger/image-size/clooooode/ml-sso-validation-code.svg?style=popout)](https://hub.docker.com/r/clooooode/ml-sso-validation-code/tags/)  
 For SOME SCHOOL's SSO validation code recognition.
 
 

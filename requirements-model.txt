@@ -24,8 +24,8 @@ MarkupSafe==1.0
 numpy==1.14.4
 Pillow==5.1.0
 protobuf==3.5.2.post1
-PyYAML==3.12
-requests==2.18.4
+PyYAML==4.2b1
+requests==2.20.0
 sanic==0.7.0
 scipy==1.1.0
 six==1.11.0
@@ -33,7 +33,7 @@ tensorboard==1.8.0
 tensorflow==1.8.0
 termcolor==1.1.0
 ujson==1.35
-urllib3==1.22
+urllib3==1.23
 uvloop==0.10.1
 websockets==5.0.1
 Werkzeug==0.14.1
