@@ -5,7 +5,6 @@ import numpy as np
 from keras.models import *
 from keras.layers import *
 
-from .Fetcher import getImage
 from .Captcha.SSOCaptcha import SSOCaptcha
 from .Captcha.Vocab import Vocab
 
@@ -88,10 +87,9 @@ class SSOModel(object):
         if self.debug:
             print('Model trained')
 
-    def productionPredict(self, cookies):
+    def productionPredict(self, img, text):
         try:
             X = np.zeros((1, height, width, 3), dtype=np.uint8)
-            img, text = getImage(cookies)
             X[0] = img
             y_pred = self.model.predict(X)
             print('pred:%s' % decode(y_pred))
