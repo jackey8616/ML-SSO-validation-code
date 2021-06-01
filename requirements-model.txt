@@ -35,7 +35,7 @@ tensorboard==1.8.0
 tensorflow==1.8.0
 termcolor==1.1.0
 ujson==1.35
-urllib3==1.22
+urllib3==1.26.5
 uvloop==0.10.1
 websockets==6.0
 Werkzeug==0.14.1
