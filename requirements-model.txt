@@ -26,7 +26,7 @@ Pillow==5.1.0
 protobuf==3.5.2.post1
 PyYAML==4.2b1
 requests==2.20.0
-sanic==18.12.0
+sanic==20.12.6
 Sanic-Cors==0.9.7
 Sanic-Plugins-Framework==0.6.5
 scipy==1.1.0
